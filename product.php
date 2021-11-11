@@ -10,7 +10,7 @@
         <div class="card-header bg-primary text-white">การจัดการสินค้า</div>
         <div class="card-body"></div>
     <table class="table table-striped">
-<tr class="bg-info">
+ <tr class="bg-info">
     <td>ลำดับที่</td>
     <td>รหัสสินค้า</td>
     <td>ชื่อสินค้า</td>
