@@ -1,23 +1,37 @@
 <?php
-      include 'navbar.php';   
-     require_once 'config.php';
-     if(isset($_POST['submit'])){
-         $emp_id=$_POST['emp_id'];
-         $emp_name=$_POST['emp_name'];
-         $telephone=$_POST['telephone'];
-         $email=$_POST['email'];
-         if($emp_id=='' || $emp_name==''|| $telephone==''|| $email==''){
-             echo "<script>alert('คุณยังไม่ได้กรอกข้อมูล')</script>";
-         }else{
-         $sql="INSERT INTO employee VALUES('$emp_id','$emp_name','$telephone','$email')";
-            $resualt=$con->query($sql);
-            if(!$resualt){
-                echo "<script>alert('ERROR:ไม่สามารถเพิ่มข้อมูลได้ กรุณาตรวจสอบความผิดพลาด');</script>";
+    include 'navbar.php';
+    require_once 'config.php';  
+    if(isset($_POST['submit'])){
+        $emp_id = $_POST['emp_id'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $emp_name = $_POST['emp_name'];
+        $telephone = $_POST['telephone'];
+        $email = $_POST['email'];
+        if($emp_id=='' || $username == '' || $password == ''|| $emp_name=='' || $telephone=='' || $email=='' ){
+            echo "<script>alert('คุณยังไม่ได้กรอกข้อมูล');</script>";
+        }else{
+            $old_data = mysqli_fetch_array($con->query("SELECT * FROM employee"));
+            if($old_data['emp_name'] == $emp_name){
+                echo "<script>alert('ชื่อพนักงานนี้มีอยู่แล้ว')</script>";
+            }else if($old_data['telephone'] == $telephone){
+                echo "<script>alert('เบอร์นี้มีอยู่แล้ว')</script>";
+            }else if($old_data['email'] == $email){
+                echo "<script>alert('E-mail นี้มีอยู่แล้ว')</script>";
+            }else if($old_data['username'] == $username){
+                echo "<script>alert('Username นี้มีอยู่แล้ว')</script>";
             }else{
-                echo "<script>window.location.href='employee.php'</script>";
+                //$save_pass = md5($password);
+                $sql = "INSERT INTO employee VALUES('$emp_id','$username','$password','$emp_name','$telephone','$email')";
+                $result = $con->query($sql);
+                if(!$result){
+                    echo "<script>alert('ERROR : ไม่สามารถเพิ่มข้อมูลได้ กรุณาตรวจสอบข้อผิดพลาด');</script>";   
+                }else{
+                    echo "<script>window.location.href='employee.php';</script>";
+                }
             }
-         }
-     }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,12 +45,22 @@
 <body>
     <div class="container w-25 mt-5">
         <div class="card">
-            <div class="card-header bg-primary text-white">เพิ่มข้อมูลพนักงาน</div>
+            <div class="card-header bg-dark text-white">
+                เพิ่มข้อมูลพนักงาน
+            </div>
             <div class="card-body">
-              <form action="<?php $_SERVER['PHP_SELF']?>" method="POST">
+                <form action="<?php $_SERVER['PHP_SELF']?>" method ="POST">
                     <div class="mb-3">
                         <label for="" class="form-label">รหัสพนักงาน</label>
                         <input type="text" class="form-control" name="emp_id">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">ชื่อพนักงาน</label>
@@ -47,17 +71,16 @@
                         <input type="text" class="form-control" name="telephone">
                     </div>
                     <div class="mb-3">
-                        <label for="" class="form-label">email</label>
+                        <label for="" class="form-label">อีเมล</label>
                         <input type="text" class="form-control" name="email">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label"></label>
-                        <input type="submit" class="btn btn-primary" name="submit" value="เพิ่มข้อมูล">
+                        <input type="submit" class="btn btn-success" name="submit" value="Confirm">
                     </div>
-              </form>
-                </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>
-
 </html>

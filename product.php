@@ -4,7 +4,7 @@
     $sql = "SELECT * FROM product order by pro_id DESC";
     $result = $con->query($sql);
 ?>
-<div class="container w-50 mt-5" >
+<div class="container w-60 mt-5">
 <a href= "add.product.php" class="btn btn-success"> +เพิ่มข้อมูล </a>
     <div class="card">
         <div class="card-header bg-primary text-white">การจัดการสินค้า</div>
