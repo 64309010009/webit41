@@ -14,5 +14,5 @@
 
 
     $con=mysqli_connect($host,$user,$password,$dbname);
-    $con->query('SET NAME UTF8');
+    $con->query('SET NAMES UTF8');
 ?>
