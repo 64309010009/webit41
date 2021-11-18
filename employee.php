@@ -16,6 +16,8 @@
     <td>ชื่อพนักงาน</td>
     <td>เบอร์โทรศัพท์</td>
     <td>อีเมล</td>
+    <td>การจัดการ</td>
+
 </tr>
 <?php
     $i=1;
@@ -27,6 +29,11 @@
         <td><?php echo $row['emp_name']?></td>
         <td><?php echo $row['telephone']?></td>
         <td><?php echo $row['email']?></td>
+        <td>
+                        <a href="edit_emp.php?emp_id=<?php echo $row['emp_id']?>" class="btn btn-success">แก้ไข</a>
+                        <a href="del_emp.php?emp_id=<?php echo $row['emp_id']?>" class="btn btn-danger" 
+                        onclick="return confirm('ยืนยันการลบ?')">ลบ</a>
+                    </td>
     </tr>
 <?php
 $i++;
